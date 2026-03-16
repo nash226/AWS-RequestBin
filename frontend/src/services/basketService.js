@@ -23,10 +23,12 @@ const deleteRequest = (requestId) => {
   return axios.delete(`${baseURL}/requests/${requestId}`)
 }
 
-export default {
+const basketService = {
   generateEndpoint,
   create,
   getRequests,
   deleteBasket,
   deleteRequest
 }
+
+export default basketService

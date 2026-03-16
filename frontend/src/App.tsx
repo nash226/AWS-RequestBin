@@ -5,10 +5,9 @@ import MyBaskets from './components/MyBaskets'
 import RequestsForBasket from './components/RequestsForBasket'
 import basketService from './services/basketService'
 
-function App() {
+const appOrigin = window.location.origin
 
-  const backendBaseUrl = 'http://localhost:3000'
-  
+function App() {
   const [userToken, setUserToken] = useState<string | null>(null)
   const [baskets, setUserBaskets] = useState<string[]>([])
   const [selectedBasket, setSelectedBasket] = useState<string | null>(null)
@@ -34,7 +33,7 @@ function App() {
     }
 
     if (data.newEndPoint) {
-      const createdBasketUrl = `${backendBaseUrl}/${data.newEndPoint}`
+      const createdBasketUrl = `${appOrigin}/${data.newEndPoint}`
       setUserBaskets((prev) => [...prev, createdBasketUrl]);
       basketService.generateEndpoint()
         .then((response) => {
@@ -72,7 +71,7 @@ function App() {
       })
       .then((rows: any[]) => {
         if (Array.isArray(rows)) {
-          const mapped = rows.map((row: any) => `http://localhost:3000/${row.endpoint}`);
+          const mapped = rows.map((row: any) => `${appOrigin}/${row.endpoint}`);
           setUserBaskets(mapped);
         }
       })

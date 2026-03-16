@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 import basketService from '../services/basketService'
 
-const backendBaseUrl = 'http://localhost:3000'
-
 function getEndpointFromBasketValue(basket: string) {
   try {
     const parsed = new URL(basket)
@@ -64,7 +62,7 @@ const RequestsForBasket = ({ selectedBasket }: { selectedBasket: string }) => {
 
   useEffect(() => {
     const endpoint = getEndpointFromBasketValue(selectedBasket)
-    const socket = io(backendBaseUrl, {
+    const socket = io({
       transports: ['websocket', 'polling'],
     })
 

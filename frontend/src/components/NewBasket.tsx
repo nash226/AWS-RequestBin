@@ -2,6 +2,7 @@ import React from 'react'
 import basketService from '../services/basketService'
 
 const NewBasket = ({ userToken, endpoint, setEndpoint, onBasketCreated }: any) => {
+  const appOrigin = window.location.origin
 
   async function handleCreateBasket(event: any) {
     event.preventDefault()
@@ -20,7 +21,7 @@ const NewBasket = ({ userToken, endpoint, setEndpoint, onBasketCreated }: any) =
       <h1>New Basket</h1>
       <p>Create a new basket to send HTTP requests to.</p>
       <p className="input-row">
-        http://localhost:3000/
+        {appOrigin}/
         <input
           aria-label="new-basket-path"
           value={endpoint || ''}

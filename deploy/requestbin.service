@@ -1,0 +1,15 @@
+[Unit]
+Description=RequestBin backend
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/RequestBin/back_end
+EnvironmentFile=/home/ubuntu/RequestBin/back_end/.env
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
