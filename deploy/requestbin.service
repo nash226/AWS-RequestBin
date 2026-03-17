@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=ubuntu
-WorkingDirectory=/home/ubuntu/RequestBin/back_end
-EnvironmentFile=/home/ubuntu/RequestBin/back_end/.env
+User=ec2-user
+WorkingDirectory=/home/ec2-user/RequestBin/back_end
+EnvironmentFile=/home/ec2-user/RequestBin/back_end/.env
 ExecStart=/usr/bin/npm start
 Restart=always
 RestartSec=5
