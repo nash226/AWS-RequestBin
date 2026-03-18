@@ -31,6 +31,15 @@ Assign private IPs so the configuration stays predictable:
 - `postgres-1`: `10.0.3.10`
 - `mongo-1`: `10.0.3.11`
 
+Reference deployment used for this project:
+
+- Public web domain: `luudo.org`
+- `web-1`: `10.54.1.246`
+- `app-1`: `10.54.2.50`
+- `postgres-1`: `10.54.3.197`
+- `mongo-1`: `10.54.3.209`
+- App subnet CIDR allowed in PostgreSQL: `10.54.2.0/24`
+
 ## 2. Security groups
 
 Create these security groups.
@@ -278,6 +287,13 @@ From your laptop:
 - Send a request to the generated basket URL
 - Confirm the request appears in the UI
 
+Validated deployment example:
+
+- Open `https://luudo.org`
+- Confirm the frontend loads from Nginx
+- Create a basket from the browser
+- Confirm requests appear in the UI after being forwarded through the private app tier
+
 ## 8. Traffic flow
 
 1. Browser connects to `web-1` over port `80`.
@@ -286,8 +302,17 @@ From your laptop:
 4. The Express app stores metadata in PostgreSQL on `postgres-1`.
 5. The Express app stores request payload documents in MongoDB on `mongo-1`.
 
+Validated project deployment traffic flow:
+
+1. Browser connects to `https://luudo.org`.
+2. Nginx on `10.54.1.246` serves the frontend build from `/usr/share/nginx/html`.
+3. Nginx forwards `/api/*`, `/socket.io/*`, and request capture routes to `10.54.2.50:3001`.
+4. The application server on `10.54.2.50` connects to PostgreSQL on `10.54.3.197:5432`.
+5. The application server on `10.54.2.50` connects to MongoDB on `10.54.3.209:27017`.
+
 ## 9. Notes
 
 - This is a four-instance architecture, but it is still single-node per tier. There is no high availability yet.
 - The current MongoDB setup does not enable authentication. If you need production hardening, enable Mongo auth and update `MONGODB_URI`.
 - If you rebuild the frontend, do it before copying assets onto `web-1`.
+- During migration from an older monolith deployment, clearing the browser's stored `userToken` may be necessary because a stale token from the previous database can cause basket creation to fail.

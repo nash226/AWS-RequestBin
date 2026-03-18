@@ -1,5 +1,30 @@
 # RequestBin
 
+## Final Architecture
+
+This project was deployed as a 4-instance multi-tier AWS architecture inside a custom VPC:
+
+- Web server in the public subnet
+- Application server in a private app subnet
+- PostgreSQL server in a private DB subnet
+- MongoDB server in a private DB subnet
+
+Validated deployment layout:
+
+- Public web server: `luudo.org`
+- Web server private IP: `10.54.1.246`
+- App server private IP: `10.54.2.50`
+- PostgreSQL private IP: `10.54.3.197`
+- MongoDB private IP: `10.54.3.209`
+
+Traffic flow:
+
+1. Browser connects to `luudo.org` over HTTPS.
+2. Nginx on the web EC2 serves the frontend build from `/usr/share/nginx/html`.
+3. Nginx proxies `/api/*`, `/socket.io/*`, and basket capture routes such as `/<endpoint>` to the private app server at `10.54.2.50:3001`.
+4. The Express application stores relational metadata in PostgreSQL at `10.54.3.197:5432`.
+5. The Express application stores request payload documents in MongoDB at `10.54.3.209:27017`.
+
 ## Local Development
 
 Frontend:
@@ -30,3 +55,4 @@ Included deployment assets:
 
 - [deploy/requestbin.service](/Users/nazeershaikh/Capstone/RequestBin/deploy/requestbin.service)
 - [deploy/nginx-requestbin.conf](/Users/nazeershaikh/Capstone/RequestBin/deploy/nginx-requestbin.conf)
+- [deploy/requestbin.env.example](/Users/nazeershaikh/Capstone/RequestBin/deploy/requestbin.env.example)
