@@ -15,6 +15,14 @@ const { ObjectId } = mongoose.Types;
 dotenv.config();
 
 const app = express();
+const allowedOrigin = process.env.CORS_ORIGIN || "*";
+const socketOrigin = process.env.SOCKET_IO_ORIGIN || allowedOrigin;
+const trustProxySetting = process.env.TRUST_PROXY;
+
+if (trustProxySetting) {
+  app.set("trust proxy", trustProxySetting === "true" ? true : trustProxySetting);
+}
+
 initializeSchema();
 
 const generateEndpoint = () => {
@@ -30,7 +38,7 @@ const generateEndpoint = () => {
 
 //Middleware
 app.use(express.json()); // JSON bodies
-app.use(cors()); // enable CORS;
+app.use(cors({ origin: allowedOrigin })); // enable CORS;
 app.use(express.urlencoded({ extended: true })); // URL-encoded bodies
 app.use(express.text({ type: 'text/*' })); // Text bodies
 
@@ -39,7 +47,7 @@ const server = http.createServer(app);
 
 const io  = new Server(server, {
   cors: {
-    origin: "*",// for dev purposes; we should restrict this to frontend url in time
+    origin: socketOrigin,
     methods: ["GET", "POST"]
   }
 });
@@ -54,6 +62,10 @@ io.on("connection", (socket) => {
 
 
 //routes
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 app.get('/api/web/baskets', async (req, res) => {
   const masterToken = req.headers['master-token'];
@@ -293,7 +305,7 @@ app.all('/:endpoint', async (req, res) => {
 
 //Start Server
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => {
   console.log(`Running on port ${PORT}`)

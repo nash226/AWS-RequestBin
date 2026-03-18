@@ -21,7 +21,10 @@ npm start
 
 ## Deployment
 
-Amazon Linux 2023 EC2 deployment steps are documented in [deploy/EC2_AMAZON_LINUX_2023.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/EC2_AMAZON_LINUX_2023.md).
+Deployment guides:
+
+- Single-instance Amazon Linux 2023: [deploy/EC2-AmazonLinux2023-deployment-guide.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/EC2-AmazonLinux2023-deployment-guide.md)
+- Multi-tier custom VPC on 4 EC2 instances: [deploy/EC2-multi-tier-vpc-deployment-guide.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/EC2-multi-tier-vpc-deployment-guide.md)
 
 Included deployment assets:
 
