@@ -50,6 +50,7 @@ Deployment guides:
 
 - Single-instance Amazon Linux 2023: [deploy/EC2-AmazonLinux2023-deployment-guide.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/EC2-AmazonLinux2023-deployment-guide.md)
 - Multi-tier custom VPC on 4 EC2 instances: [deploy/EC2-multi-tier-vpc-deployment-guide.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/EC2-multi-tier-vpc-deployment-guide.md)
+- ALB + CloudFront + S3 architecture: [deploy/ALB-CloudFront-S3-deployment-guide.md](/Users/nazeershaikh/Capstone/RequestBin/deploy/ALB-CloudFront-S3-deployment-guide.md)
 
 Included deployment assets:
 

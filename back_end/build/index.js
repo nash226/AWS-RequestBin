@@ -52,6 +52,9 @@ io.on("connection", (socket) => {
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'ok' });
 });
+app.get('/api/health', (req, res) => {
+    res.status(200).json({ status: 'ok' });
+});
 app.get('/api/web/baskets', async (req, res) => {
     const masterToken = req.headers['master-token'];
     if (!masterToken)
