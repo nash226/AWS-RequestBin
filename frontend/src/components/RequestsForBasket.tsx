@@ -23,7 +23,7 @@ function normalizeRequestRow(row: any, endpoint: string) {
     method: row.method || 'UNKNOWN',
     headers: row.headers || {},
     body: row.mongoRequestBody?.requestPayload || row.body || '',
-    path: row.path || `/${endpoint}`,
+    path: row.path || `/bin/${endpoint}`,
     date: combinedDate,
   }
 }

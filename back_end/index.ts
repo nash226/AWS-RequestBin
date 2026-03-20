@@ -262,7 +262,7 @@ app.put("/api/web/:endpoint", async (req, res) => {
   }
 });
 
-app.all('/:endpoint', async (req, res) => {
+app.all('/bin/:endpoint', async (req, res) => {
   const endpoint = req.params.endpoint;
 
   //save the body to mongodb if there is a body;

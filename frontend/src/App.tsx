@@ -6,6 +6,7 @@ import RequestsForBasket from './components/RequestsForBasket'
 import basketService from './services/basketService'
 
 const appOrigin = window.location.origin
+const basketPathPrefix = '/bin'
 
 function App() {
   const [userToken, setUserToken] = useState<string | null>(null)
@@ -33,7 +34,7 @@ function App() {
     }
 
     if (data.newEndPoint) {
-      const createdBasketUrl = `${appOrigin}/${data.newEndPoint}`
+      const createdBasketUrl = `${appOrigin}${basketPathPrefix}/${data.newEndPoint}`
       setUserBaskets((prev) => [...prev, createdBasketUrl]);
       basketService.generateEndpoint()
         .then((response) => {
@@ -71,7 +72,7 @@ function App() {
       })
       .then((rows: any[]) => {
         if (Array.isArray(rows)) {
-          const mapped = rows.map((row: any) => `${appOrigin}/${row.endpoint}`);
+          const mapped = rows.map((row: any) => `${appOrigin}${basketPathPrefix}/${row.endpoint}`);
           setUserBaskets(mapped);
         }
       })

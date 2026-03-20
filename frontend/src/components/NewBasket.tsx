@@ -1,6 +1,8 @@
 import React from 'react'
 import basketService from '../services/basketService'
 
+const basketPathPrefix = '/bin'
+
 const NewBasket = ({ userToken, endpoint, setEndpoint, onBasketCreated }: any) => {
   const appOrigin = window.location.origin
 
@@ -21,7 +23,7 @@ const NewBasket = ({ userToken, endpoint, setEndpoint, onBasketCreated }: any) =
       <h1>New Basket</h1>
       <p>Create a new basket to send HTTP requests to.</p>
       <p className="input-row">
-        {appOrigin}/
+        {appOrigin}{basketPathPrefix}/
         <input
           aria-label="new-basket-path"
           value={endpoint || ''}
