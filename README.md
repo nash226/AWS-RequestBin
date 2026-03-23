@@ -1,5 +1,35 @@
 # RequestBin
 
+## What This Application Does
+
+RequestBin is a request inspection tool for capturing and reviewing inbound HTTP traffic. It lets a user create a unique endpoint, send requests to that URL, and inspect the captured request details from a web interface.
+
+The application is useful for:
+
+- Testing webhooks and callback URLs
+- Inspecting request headers and payloads during development
+- Verifying that third-party services are sending the expected HTTP method and body
+- Keeping multiple request bins for different integrations or debugging sessions
+
+## Core Workflow
+
+1. The user opens the web app and creates a new basket.
+2. The app generates a unique public capture URL in the format `/bin/<endpoint>`.
+3. Any HTTP request sent to that URL is stored by the backend.
+4. Request metadata such as method, headers, and timestamps are stored in PostgreSQL.
+5. Request bodies are stored in MongoDB.
+6. The frontend displays captured requests and updates in real time through Socket.IO.
+
+## Main Features
+
+- Create and manage multiple request bins from the browser
+- Persist basket ownership with a generated master token stored in local storage
+- Capture requests sent to dynamic `/bin/:endpoint` routes
+- View request history for a selected basket
+- Inspect headers and body payloads for each captured request
+- Receive live updates when new requests arrive
+- Delete individual requests or entire baskets
+
 ## Final Architecture
 
 This project was deployed as a 4-instance multi-tier AWS architecture inside a custom VPC:
